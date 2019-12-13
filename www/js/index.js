@@ -18,6 +18,7 @@ function onPageCreated() {
 	
 	//setup buttons
 	$('#writeFile').on("click", writeFile);
+    $('#deleteFile').on("click", deleteFile2);
 	
 }
 
@@ -82,6 +83,33 @@ function writeFile()
 		}, 
 		fail
 	);
+}
+
+//Custom Delete Function
+function deleteFile()
+{
+    console.log("deleteFile: "  + fileEntry.fullPath);
+    
+    File file = new File(fileEntry.fullPath);
+    boolean deleted = file.delete();, 
+		fail
+	);
+}
+
+//Delete Function Test 2
+function deleteFile2()
+{
+    window.resolveLocalFileSystemURL(/storage/self/primary/Android/data/io.cordova.hellocordova/files/test.txt, function(dir) {
+        dir.getFile(filename, {create:false}, function(fileEntry) {
+                  fileEntry.remove(function(){
+                      // The file has been removed succesfully
+                  },function(error){
+                      // Error deleting the file
+                  },function(){
+                     // The file doesn't exist
+                  });
+        });
+    });
 }
 
 
